@@ -1,0 +1,11 @@
+version: 2
+
+models:
+  - name: stg_demo__product_relationships
+    description: Staging view for source table
+    # Would fill out column names and descriptions with more time
+    columns:
+      - name: product_child_product_pk
+        data_tests:
+          - unique
+          - not_null

@@ -2,8 +2,21 @@ version: 2
 
 sources:
   - name: demo
-    schema: "{{ target.schema }}_raw"
+    database: confido_demo
+    schema: public
     description: The only source in this exercise
     tables:
       - name: company_details
         description: TODO, and TODO on further src tbls
+      - name: confido_distribution_centers
+      - name: contacts
+      - name: global_customers
+      - name: invoices
+      - name: invoice_items
+      - name: items
+      - name: map_contact_subsidiaries
+      - name: products
+      - name: product_prices
+      - name: product_relationships
+      - name: product_shipping_configs
+      - name: retailers

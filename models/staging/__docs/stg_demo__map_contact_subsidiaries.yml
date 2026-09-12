@@ -1,0 +1,11 @@
+version: 2
+
+models:
+  - name: stg_demo__map_contact_subsidiaries
+    description: Staging view for source table
+    # Would fill out column names and descriptions with more time
+    columns:
+      - name: contact_subsidiary_pk
+        data_tests:
+          - unique
+          - not_null

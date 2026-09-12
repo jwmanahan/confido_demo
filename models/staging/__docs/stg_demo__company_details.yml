@@ -1,0 +1,11 @@
+version: 2
+
+models:
+  - name: stg_demo__company_details
+    description: Staging view for source table company_details
+    # Would fill out column names and descriptions with more time
+    columns:
+      - name: company_id
+        data_tests:
+          - unique
+          - not_null
