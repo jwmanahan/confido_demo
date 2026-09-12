@@ -2,7 +2,8 @@ version: 2
 
 sources:
   - name: demo
-    schema: "{{ target.schema }}_raw"
+    database: confido_demo
+    schema: public
     description: The only source in this exercise
     tables:
       - name: company_details
