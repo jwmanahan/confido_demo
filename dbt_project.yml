@@ -1,0 +1,17 @@
+name: confido_demo
+
+profile: default
+
+seed-paths: ["seeds"]
+model-paths: ["models"]
+macro-paths: ["macros"]
+clean-targets:
+  - "target"
+  - "seeds"
+  - "dbt_packages"
+
+models:
+  +static_analysis: baseline
+  +materialized: table
+  staging:
+    +materialized: view
