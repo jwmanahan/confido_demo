@@ -1,5 +1,5 @@
 SELECT
-    -- Primary key // TODO: test
+    -- Primary key
     id AS company_id
 
     -- Foreign keys

@@ -1,0 +1,11 @@
+version: 2
+
+models:
+  - name: stg_demo__confido_distribution_centers
+    description: Staging view for source table
+    # Would fill out column names and descriptions with more time
+    columns:
+      - name: distribution_center_id
+        data_tests:
+          - unique
+          - not_null

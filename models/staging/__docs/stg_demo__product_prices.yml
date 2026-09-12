@@ -1,0 +1,14 @@
+version: 2
+
+models:
+  - name: stg_demo__product_prices
+    description: |
+      * Staging view for source table
+      * Clear duplication in source, addressed by switching PK from source
+        * Note cost of losing historical data. To fix, first clean up source
+    # Would fill out column names and descriptions with more time
+    columns:
+      - name: product_customer_effective_date_pk
+        data_tests:
+          - unique
+          - not_null

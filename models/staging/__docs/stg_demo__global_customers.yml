@@ -1,0 +1,11 @@
+version: 2
+
+models:
+  - name: stg_demo__global_customers
+    description: Staging view for source table
+    # Would fill out column names and descriptions with more time
+    columns:
+      - name: global_customer_id
+        data_tests:
+          - unique
+          - not_null
