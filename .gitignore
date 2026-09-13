@@ -3,4 +3,3 @@ dbt_internal_packages/
 logs/
 target/
 .env
-.$confido_demo.drawio.bkp
