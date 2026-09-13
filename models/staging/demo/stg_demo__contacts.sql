@@ -7,7 +7,7 @@ SELECT
     , parent_remote_id
     , global_customer_id
     , distribution_center_id
-    , company_detail_id
+    , company_detail_id AS company_id
 
     -- What we know about the contact
     , name AS contact_name

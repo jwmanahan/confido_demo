@@ -3,7 +3,7 @@ SELECT
     id AS item_id
 
     -- Foreign keys
-    , company_detail_id
+    , company_detail_id AS company_id
     , remote_id AS item_remote_id -- Presumed to be the ID of the item in the client company's systems
 
     -- What we know about the items

@@ -4,7 +4,7 @@ SELECT
 
     -- Foreign keys
     , customer_remote_id -- TODO: which Ct field does this map to? Differnt types w/ 10, 40, etc vs GENERATED_XXXX. Could group by this
-    , company_detail_id
+    , company_detail_id AS company_id
     , subsidiary_id
     -- Leaving out check_remit_item_ID since all NULL in source
 

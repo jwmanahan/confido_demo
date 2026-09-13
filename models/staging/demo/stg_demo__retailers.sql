@@ -4,7 +4,7 @@ SELECT
     , _uuid
 
     -- Foreign keys
-    , company_detail_id
+    , company_detail_id AS company_id
     , muffin_account_id
     , muffin_chain_id
 

@@ -14,7 +14,7 @@ SELECT
     inv.invoice_id
 
     -- Foreign keys
-    , inv.company_detail_id
+    , inv.company_id
     , inv.customer_remote_id -- Doesn't seem to JOIN to available columns in stg_demo__global_customers
     , inv.subsidiary_id
 

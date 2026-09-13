@@ -28,25 +28,25 @@ SELECT
     , ci.item_name
 
     -- What we know about the company
-    , co.company_id
+    , inv.company_id
     , co.company_name
     , co.muffin_organization_id
 
     -- Processing
     , CURRENT_TIMESTAMP AS table_last_generated_at
 
-FROM stg_demo__invoice_items AS ii
-INNER JOIN int_invoice AS inv
+FROM {{ ref('stg_demo__invoice_items') }} AS ii
+INNER JOIN {{ ref('int_invoice') }} AS inv
     ON ii.invoice_id = inv.invoice_id
 -- TODO: Would like to join to customers here, but not with the currently existing JOIN possibilities
-LEFT JOIN stg_demo__items AS ci -- "company item". As of Sept 2026, JOIN is 1:1
+LEFT JOIN {{ ref('stg_demo__items') }} AS ci -- "company item". As of Sept 2026, JOIN is 1:1
     ON ii.item_remote_id = ci.item_remote_id -- would prefer item_id
-    AND inv.company_detail_id = ci.company_detail_id
-LEFT JOIN stg_demo__company_details AS co
-    ON inv.company_detail_id = co.company_id
+    AND inv.company_id = ci.company_id
+LEFT JOIN {{ ref('stg_demo__company_details') }} AS co
+    ON inv.company_id = co.company_id
 -- TODO: Product probably belongs here for PIT forecast prices, but doesn't appear to have eligible JOIN conditions in its current state
 WHERE NVL(inv.currency, 'USD') = 'USD' -- TODO: add join to an exchange rate table and column usd_price
 ORDER BY
     inv.invoice_created_at_ntz DESC
-    , inv.company_detail_id ASC
+    , inv.company_id ASC
     , ii.invoice_item_id DESC

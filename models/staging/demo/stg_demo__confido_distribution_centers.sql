@@ -6,7 +6,7 @@ SELECT
     -- Foreign keys
     , global_customer_id
     , muffin_location_id
-    , company_detail_id
+    , company_detail_id AS company_id
 
     -- What we know about the distribution center
     , name AS distribution_center_name
