@@ -1,11 +1,11 @@
-WITH cte_invoice_items AS (
+WITH cte_original_invoice_items AS (
     SELECT
         invoice_id
         , COUNT(1) n_invoice_items
         , SUM(unit_quantity) invoice_total_quantity
         , SUM(invoice_item_price) invoice_total_price
-        , ARRAY_AGG(DISTINCT charge_direction) charge_directions_present
     FROM {{ ref('stg_demo__invoice_items') }}
+    WHERE invoice_item_price > 0
     GROUP BY 1
 )
 
@@ -23,24 +23,22 @@ SELECT
     , CASE WHEN paid_on_date IS NOT NULL THEN 'Paid' -- This assumption needs to be checked
         ELSE 'Open'
       END AS invoice_state
-    , NVL(ii.charge_directions_present, ['No line items']) AS charge_directions_present -- Could add to row definition
 
     -- Timing
     , inv.invoice_created_at_ntz
     , inv.paid_on_date
 
     -- Price
-    , NVL(ii.invoice_total_price, 0) AS invoice_total_price
+    , NVL(ii.invoice_total_price, 0) AS invoice_original_total_price
     , inv.currency
 
     -- Other measures of size
-    , NVL(ii.n_invoice_items, 0) AS n_invoice_items
-    , NVL(ii.invoice_total_quantity, 0) AS invoice_total_quantity
+    , NVL(ii.n_invoice_items, 0) AS n_original_invoice_items
+    , NVL(ii.invoice_total_quantity, 0) AS invoice_original_total_quantity
 
     -- Processing
     , CURRENT_TIMESTAMP AS table_last_generated_at
 
-
 FROM {{ ref('stg_demo__invoices') }} AS inv
-LEFT JOIN cte_invoice_items AS ii
+LEFT JOIN cte_original_invoice_items AS ii
     ON inv.invoice_id = ii.invoice_id

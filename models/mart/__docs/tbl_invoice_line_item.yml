@@ -22,10 +22,10 @@ models:
         description: Limited for now to USD and empty, which is presumed to be USD
       - name: price_on_invoice_item
         description: The price printed on this invoice line item, even if negative
-      - name: pct_of_invoice_price
+      - name: pct_of_original_invoice_price
         description: |
           * The percentage of the whole invoice price held by this line item
-          * Beware that percentages of invoices with both positive and negative charge directions are percent of the net price and can thus be negative and >100%
+          * Negative values for refunds
       - name: charge_direction
         description: Whether this line item represents a payment "Positive charge" or a refund of any sort "Negative charge". Both directions can exist on the same invoice
       - name: unit_quantity
@@ -37,6 +37,12 @@ models:
           * Simply unit_price times unit_quantity
           * Always within $10 of the more accurate price_on_invoice_item
           * Differences are assumed to be due to rounding and possibly small fees
+      - name: is_refund_line_item
+        description: True if the price is negative
+      - name: invoice_original_total_quantity
+        description: The total invoice quantity across all line items before refunds
+      - name: invoice_original_total_price
+        description: The total invoice price across all line items before refunds
       - name: invoice_state
         description: Paid or open
       - name: invoice_created_at_ntz

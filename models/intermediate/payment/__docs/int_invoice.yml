@@ -2,7 +2,9 @@ version: 2
 
 models:
   - name: int_invoice
-    description: Normalized information we know about an invoice. Meant for usage in the mart layer
+    description: |
+      * Normalized information we know about an invoice. Meant for usage in the mart layer
+      * All values are pre-refund
     columns:
       - name: invoice_id
         description: Confido-internal identifier of the invoice
@@ -21,21 +23,17 @@ models:
         description: String identifier of the invoice. Not guaranteed to be unique, but is how external partners will identify the invoice
       - name: invoice_state
         description: Paid or open
-      - name: charge_directions_present
-        description: |
-          * A list of all the directions debits and credits are made
-          * Can be just 'Positive charge', just 'Negative charge', both, or just 'No line items'
       - name: invoice_created_at_ntz
         description: |
             * Our best knowledge on when the invoice was first created
             * Note the datatype of no time zone, especially if you're running this code outside US Eastern Time and on Daylight Savings Time
       - name: paid_on_date
         description: If the invoice has been paid, this is the date (no timestamp). Not sure if this is first payment, final payment, funds committed, funds cleared, or what
-      - name: invoice_total_price
-        description: The sum of the prices printed on this invoice's line items, including negative charges
+      - name: invoice_original_total_price
+        description: The sum of the prices printed on this invoice's line items, excluding negative charges
       - name: currency
         description: ISO-3 currency code, or empty, which is presumed to be USD
-      - name: n_invoice_items
-        description: The number of line items on this invoice
-      - name: invoice_total_quantity
+      - name: n_original_invoice_items
+        description: The number of line items on this invoice before any refunds
+      - name: invoice_original_total_quantity
         description: An alternate measure of volume to price, beware of comparing quantities of different types of products

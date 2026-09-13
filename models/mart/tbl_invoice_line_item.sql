@@ -1,21 +1,30 @@
--- Invoice product
+
 SELECT
     -- Primary key
     ii.invoice_item_id
 
     -- Information about the invoice overall
     , ii.invoice_id
-    , inv.invoice_number
+    , inv.invoice_number -- I see that this table "should reference Confido's internal entities". Right on, but let's keep this since it acts as the invoice's name
 
     -- Pricing
     , inv.currency AS invoice_currency
     , ii.invoice_item_price AS price_on_invoice_item
-    , DIV0(ii.invoice_item_price, inv.invoice_total_price) AS pct_of_invoice_price
+    , DIV0(ii.invoice_item_price, inv.invoice_original_total_price) AS pct_of_original_invoice_price
     , ii.charge_direction
     , ii.unit_quantity
     , ii.unit_price
     , ii.calc_invoice_item_price AS price_implied_by_price_x_quantity
     -- TODO: + Price implied by product
+
+    -- Refunds
+    /* Identifying refunds could use improvement
+        This code is robust to multiple refunds on one invoice,
+        but does not match each refund to the line item being refunded
+    */
+    , ii.charge_direction = 'Negative charge' AS is_refund_line_item
+    , inv.invoice_original_total_quantity
+    , inv.invoice_original_total_price
 
     -- Timing
     , inv.invoice_state
